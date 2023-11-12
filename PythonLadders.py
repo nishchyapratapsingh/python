@@ -37,10 +37,6 @@ sleep(0.2)
 print("*************************************")
 sleep(0.5)
 input("Press enter to continue... ")
-board_size = int(input("Enter the size of the board between 20 and 1000: "))
-if board_size < 20 or board_size >1000:
-                 boardsize = 100
-                 print("Default size (100) will be used!")
 num_players = int(input("Enter the number of players: ")) #Lets try to make it a multiplayer game
 players = []
 for i in range(num_players):
@@ -54,7 +50,7 @@ sleep(0.5)
 toss_winner = random.choice(players)
 print("{} won the toss!\n{} goes first ".format(toss_winner['name'], toss_winner['name']))
 players.sort(key = lambda x: x!= toss_winner) #Put the toss winner in first position as it returns false thus having low place in list
-while all(player["score"] < board_size for player in players): #when all scores are less than 100
+while all(player["score"] <100 for player in players): #when all scores are less than 100
  for player in players: #iterates through all players
     sleep(0.2)
     print("*****************************************")
@@ -64,7 +60,7 @@ while all(player["score"] < board_size for player in players): #when all scores 
     dice = random.randint(1,6)
     player['score'] += dice
     player['score'] = snakeandladders(player['score'])
-    if player['score']>board_size:
+    if player['score']>100:
       player['score'] -= dice   #in case the score exceeds 100
     sleep(0.5)
     print("You got {}\nYour score is {}".format(dice,player['score']))
@@ -75,7 +71,7 @@ print("*****************************************")
 print("*****************************************")
 sleep(0.6)
 for player in players:
- if player['score']==board_size:
+ if player['score']==100:
   print("{} is the winner!!".format(player['name']))
 print("*****************************************")
 print("*****************************************")
