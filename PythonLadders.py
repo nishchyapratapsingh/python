@@ -38,62 +38,42 @@ sleep(0.2)
 print("*************************************")
 sleep(0.5)
 input("Press enter to continue... ")
-player1 = input("Enter the name of player 1: ")
-player2 = input("Enter the name of player 2: ")
-#Maybe in future we may add a loop so that there can be n number of players but as of now lets stick to 2
-score1,score2 = 0,0 #initialise the scores #### One can also initialize them with different values to test the code without playing the whole game
+num_players = int(input("Enter the number of players: ")) #Lets try to make it a multiplayer game
+players = []
+for i in range(num_players):
+    name = input("Enter the name of player {}: ".format(i+1)) #i+1 because i has initial value 0
+    players.append({"name": name, "score": 0}) # We create a list of dictionaries... Each dictionary represent one player
+    
+#Maybe in future we may add a loop so that there can be n number of players but as of now lets stick to 2 ##In progress
+#score1,score2 = 0,0 #initialise the scores # One can also initialize them with different values to test the code without playing the whole game
 input("Press enter for toss ")
 sleep(0.5)
-
-toss = random.randint(1,2) #toss
-if toss == 1:
-  print("{} won the toss...".format(player1))
-  p1 = player1
-else:
-  print("{} won the toss...".format(player2))
-  p1 = player2
-  temp1 = score1
-  score1 = score2
-  score2 = temp1  #swapping the scores
-if p1==player1:  #specifying the player with first move (There can be better ways but currently I am aware of these only)
-  p2 = player2
-else:
-  p2 = player1  #adjusting the first turn with the toss result
-print("{} goes first".format(p1))
-while(score1!=n and score2!=100):
+toss_winner = random.choice(players)
+print("{} won the toss!\n{} goes first ".format(toss_winner['name'], toss_winner['name']))
+players.sort(key = lambda x: x!= toss_winner) #Put the toss winner in first position as it returns false thus having low place in list
+while all(player["score"] < 100 for player in players): #when all scores are less than 100
+ for player in players: #iterates through all players
     sleep(0.2)
     print("*****************************************")
     sleep(0.3)
-    print("Turn: {}\nScore: {}".format(p1,score1))
+    print("Turn: {}\nScore: {}".format(player['name'],player['score']))
     input("Press enter to play")
     dice = random.randint(1,6)
-    score1 += dice
-    score1 = snakeandladders(score1)
-    if score1>100:
-      score1 -= dice   #in case the score exceeds 100
+    player['score'] += dice
+    player['score'] = snakeandladders(player['score'])
+    if player['score']>100:
+      player['score'] -= dice   #in case the score exceeds 100
     sleep(0.5)
-    print("You got {}\nYour score is {}".format(dice,score1))
+    print("You got {}\nYour score is {}".format(dice,player['score']))
     sleep(0.6)
     print("*****************************************")
-    sleep(0.3)
-    print("Turn: {}\nScore: {}".format(p2,score2))
-    sleep(0.5)
-    input("Press enter to play")
-    dice = random.randint(1,6)
-    score2 += dice
-    score2 = snakeandladders(score2)
-    if score2>100:
-      score2 -= dice
-    sleep(0.5)
-    print("You got {}\nYour score is {}".format(dice,score2))  #basics are done. Now lets add some snakes and ladders ##Done Nov 10,2023
 print("*****************************************")
 print("*****************************************")
 print("*****************************************")
 sleep(0.6)
-if score1==100:
-  print("{} is the winner!!".format(p1))
-if score2==100:
-  print("{} is the winner!!".format(p2))
+for player in players:
+ if player['score']==100:
+  print("{} is the winner!!".format(player['name']))
 print("*****************************************")
 print("*****************************************")
 print("*****************************************")
