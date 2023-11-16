@@ -13,7 +13,7 @@ def dicefn(player):
         dice = random.randint(1, 6)
         player['score'] += dice
     return dice
-def snakeandladders(score):
+def snakeandladders(score): #adding snakes and ladders
     if score == 8:
       print("You went up a ladder! +15! ")
       return score+15
