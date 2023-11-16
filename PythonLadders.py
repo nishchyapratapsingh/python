@@ -36,11 +36,11 @@ def snakeandladders(score): #adding snakes and ladders
       score=29
       print("You got bitten by a snake! -70 ")
     return score
-print("Welcome to Python Ladders...")
+print("Welcome to Python Ladders...") #First message
 sleep(0.2)
 print("*************************************")
 sleep(0.2)
-print("a game by Nishchya and Chaitanya")
+print("a python project by Nishchya, Chaitanya and Dev")
 sleep(0.2)
 print("*************************************")
 sleep(0.5)
