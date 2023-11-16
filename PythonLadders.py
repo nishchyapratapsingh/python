@@ -7,11 +7,16 @@ from time import sleep #for pauses
 import random #for tosses and dice rolls
 def dicefn(player):
     dice = random.randint(1, 6) #rolling the dice
-    player['score'] += dice
     while dice == 6:
-        input("You got 6!\nOne more chance!\nPress Enter to play ")
-        dice = random.randint(1, 6)
-        player['score'] += dice
+        if (player['score']+6)<100:  #makes sure that player doesn't get the extra chance if score exceeds or equals 100
+            input("You got 6!\nOne more chance!\nPress Enter to play ")
+            dice_extra = random.randint(1, 6)
+            dice = 6+dice_extra
+        elif (player['score']+6)==100:
+            print("Can not go to 100 with 6! ")
+        else:
+            break
+            
     return dice
 def snakeandladders(score): #adding snakes and ladders
     if score == 8:
@@ -32,7 +37,7 @@ def snakeandladders(score): #adding snakes and ladders
     if score == 70:
       score=40
       print("You got bitten by a snake! -30 ")
-    if score == 99:
+    if score == 90:
       score=29
       print("You got bitten by a snake! -70 ")
     return score
@@ -55,28 +60,31 @@ sleep(0.2)
 toss_winner = random.choice(players) #select a random player to play first
 print("{} won the toss!\n{} goes first ".format(toss_winner['name'], toss_winner['name']))
 players.sort(key = lambda x: x!= toss_winner) #This puts the toss winner in first position as tosswinner returns false thus having low place in list
-while all(player["score"] <100 for player in players): #when all scores are less than 100
+win = 0 
+while win != 1: 
  for player in players: #iterates through all players
     sleep(0.1)
     print("*****************************************")
     sleep(0.1)
     print("Turn: {}\nScore: {}".format(player['name'],player['score']))
     input("Press enter to play")
-    player['score'] = snakeandladders(player['score']) #optimise score according to the snakeandladders function
     dice = dicefn(player) #Take the value of dice from dicefn
+    player['score'] += dice
+    player['score'] = snakeandladders(player['score']) #optimise score according to the snakeandladders function
     if player['score']>100:
       player['score'] -= dice   #in case the score exceeds 100
     sleep(0.2)
     print("You got {}\nYour score is {}".format(dice,player['score']))
     sleep(0.2)
     print("*****************************************")
-print("*****************************************")
-print("*****************************************")
-print("*****************************************")
-sleep(0.3)
-for player in players:
- if player['score']==100: #Declare the winner
-  print("{} is the winner!!".format(player['name']))
-print("*****************************************")
-print("*****************************************")
-print("*****************************************")
+    if player['score']==100: #Declare the winner
+        print("*****************************************")
+        print("*****************************************")
+        print("{} is the winner!!".format(player['name']))
+        print("*****************************************")
+        print("*****************************************")
+        win = 1 #we use this variable to terminate the while loop on the end of the game
+        break
+
+    
+
