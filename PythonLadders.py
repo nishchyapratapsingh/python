@@ -1,8 +1,18 @@
-#We are trying to make a basic snake and ladders game
+#PYTHON LADDERS
+#Nishchya Pratap Singh
+#Chaitanya Chaudhary
+#Dev Yadav
 from time import sleep #for pauses
 import random #for tosses and dice rolls
+def dicefn(player):
+    dice = random.randint(1, 6) #rolling the dice
+    player['score'] += dice
+    while dice == 6:
+        input("You got 6!\nOne more chance!\nPress Enter to play ")
+        dice = random.randint(1, 6)
+        player['score'] += dice
+    return dice
 def snakeandladders(score):
-    ### Ladders
     if score == 8:
       print("You went up a ladder! +15! ")
       return score+15
@@ -15,7 +25,6 @@ def snakeandladders(score):
     if score == 12:
       score=92
       print("You went up a ladder! +80 ")
-    ### Snakes
     if score == 35:
       score=13
       print("You got bitten by a snake! -22 ")
@@ -26,8 +35,6 @@ def snakeandladders(score):
       score=29
       print("You got bitten by a snake! -70 ")
     return score
-
-    ### Snakes and Ladders done
 print("Welcome to Python Ladders...")
 sleep(0.2)
 print("*************************************")
@@ -37,41 +44,37 @@ sleep(0.2)
 print("*************************************")
 sleep(0.5)
 input("Press enter to continue... ")
-num_players = int(input("Enter the number of players: ")) #Lets try to make it a multiplayer game
-players = []
+num_players = int(input("Enter the number of players: ")) #multiplayer
+players = [] #create a list to store players and scores
 for i in range(num_players):
     name = input("Enter the name of player {}: ".format(i+1)) #i+1 because i has initial value 0
     players.append({"name": name, "score": 0}) # We create a list of dictionaries... Each dictionary represent one player
-    
-#Maybe in future we may add a loop so that there can be n number of players but as of now lets stick to 2 ##In progress
-#score1,score2 = 0,0 #initialise the scores # One can also initialize them with different values to test the code without playing the whole game
 input("Press enter for toss ")
-sleep(0.5)
-toss_winner = random.choice(players)
+sleep(0.2)
+toss_winner = random.choice(players) #select a random player to play first
 print("{} won the toss!\n{} goes first ".format(toss_winner['name'], toss_winner['name']))
-players.sort(key = lambda x: x!= toss_winner) #Put the toss winner in first position as it returns false thus having low place in list
+players.sort(key = lambda x: x!= toss_winner) #This puts the toss winner in first position as tosswinner returns false thus having low place in list
 while all(player["score"] <100 for player in players): #when all scores are less than 100
  for player in players: #iterates through all players
-    sleep(0.2)
+    sleep(0.1)
     print("*****************************************")
-    sleep(0.3)
+    sleep(0.1)
     print("Turn: {}\nScore: {}".format(player['name'],player['score']))
     input("Press enter to play")
-    dice = random.randint(1,6)
-    player['score'] += dice
-    player['score'] = snakeandladders(player['score'])
+    player['score'] = snakeandladders(player['score']) #optimise score according to the snakeandladders function
+    dice = dicefn(player) #Take the value of dice from dicefn
     if player['score']>100:
       player['score'] -= dice   #in case the score exceeds 100
-    sleep(0.5)
+    sleep(0.2)
     print("You got {}\nYour score is {}".format(dice,player['score']))
-    sleep(0.6)
+    sleep(0.2)
     print("*****************************************")
 print("*****************************************")
 print("*****************************************")
 print("*****************************************")
-sleep(0.6)
+sleep(0.3)
 for player in players:
- if player['score']==100:
+ if player['score']==100: #Declare the winner
   print("{} is the winner!!".format(player['name']))
 print("*****************************************")
 print("*****************************************")
