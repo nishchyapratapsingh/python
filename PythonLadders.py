@@ -7,17 +7,18 @@ from time import sleep #for pauses
 import random #for tosses and dice rolls
 def dicefn(player):
     dice = random.randint(1, 6) #rolling the dice
+    player['score'] += dice
     while dice == 6:
         if (player['score']+6)<100:  #makes sure that player doesn't get the extra chance if score exceeds or equals 100
             input("You got 6!\nOne more chance!\nPress Enter to play ")
-            dice_extra = random.randint(1, 6)
-            dice = 6+dice_extra
+            dice = random.randint(1, 6)
+            player['score'] += dice
         elif (player['score']+6)==100:
             print("Can not go to 100 with 6! ")
         else:
             break
             
-    return dice
+    return dice, player['score']
 def snakeandladders(score): #adding snakes and ladders
     if score == 8:
       print("You went up a ladder! +15! ")
@@ -25,6 +26,9 @@ def snakeandladders(score): #adding snakes and ladders
     if score == 50:
       score=80
       print("You went up a ladder! +30! ")
+    if score == 4:
+        score=90:
+        print("You went up a ladder! +86")
     if score == 2:
       score=52
       print("You went up a ladder! +50 ")
@@ -68,8 +72,7 @@ while win != 1:
     sleep(0.1)
     print("Turn: {}\nScore: {}".format(player['name'],player['score']))
     input("Press enter to play")
-    dice = dicefn(player) #Take the value of dice from dicefn
-    player['score'] += dice
+    dice,player['score'] = dicefn(player) #Take the value of dice from dicefn
     player['score'] = snakeandladders(player['score']) #optimise score according to the snakeandladders function
     if player['score']>100:
       player['score'] -= dice   #in case the score exceeds 100
@@ -85,6 +88,3 @@ while win != 1:
         print("*****************************************")
         win = 1 #we use this variable to terminate the while loop on the end of the game
         break
-
-    
-
