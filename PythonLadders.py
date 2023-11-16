@@ -27,7 +27,7 @@ def snakeandladders(score): #adding snakes and ladders
       score=80
       print("You went up a ladder! +30! ")
     if score == 4:
-        score=90:
+        score=90
         print("You went up a ladder! +86")
     if score == 2:
       score=52
