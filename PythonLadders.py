@@ -2,7 +2,6 @@
 #PYTHON LADDERS
 #Nishchya Pratap Singh
 #Chaitanya Chaudhary
-#Dev Yadav
 from time import sleep #for pauses
 import random #for tosses and dice rolls
 def dicefn(player):
@@ -49,7 +48,7 @@ print("Welcome to Python Ladders...") #First message
 sleep(0.2)
 print("*************************************")
 sleep(0.2)
-print("a python project by Nishchya, Chaitanya and Dev")
+print("a python project by Nishchya and Chaitanya")
 sleep(0.2)
 print("*************************************")
 sleep(0.5)
