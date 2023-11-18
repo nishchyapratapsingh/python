@@ -1,6 +1,6 @@
 Welcome to Python Ladders...
 *************************************
-a python project by Nishchya, Chaitanya and Dev
+a python project by Nishchya and Chaitanya 
 *************************************
 Press enter to continue...  
 Enter the number of players:  2
